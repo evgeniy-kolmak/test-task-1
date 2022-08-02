@@ -10,11 +10,11 @@ export default function News() {
   }, [])
   return (
     <div className="container">
-      <h2 className="page-title">Новости</h2>
-      <ul>
+      <h2 className="title">Новости</h2>
+      <ul className="list-news">
         {posts.map(post => (
           <Link key={post.id} to={`/news/${post.id}`}>
-            <li>{post.title}</li>
+            <li className="title-news">{post.title}</li>
           </Link>
         ))}
       </ul>

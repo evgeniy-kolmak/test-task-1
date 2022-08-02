@@ -1,19 +1,43 @@
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+
+
 export default function Login() {
-  const formValidate = (e) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const { signIn } = useAuth();
+
+  const fromPage = location.state?.pathname || '/';
+
+  let valid = null;
+  const handleSubmit = (e) => {
     e.preventDefault();
-    let valid = false; //Будет стейт
+
     const data = {
       login: e.target.login.value,
       password: e.target.password.value,
     }
-    localStorage.login === data.login && localStorage.password === data.password ? valid = true : valid = false;
-    console.log(valid);
+
+    valid = localStorage.login === data.login && localStorage.password === data.password;
+
+    signIn(valid, () => navigate(fromPage, { replace: true }))
+
+
+
   }
+
+  console.log('Я отрендарился');
   return (
-    <form onSubmit={(e) => formValidate(e)} className="form">
-      <input name="login" placeholder="Введите логин" className="input" type="text" />
-      <input name="password" placeholder="Введите пароль" className="input" type="password" />
-      <button className=" btn login" type="submit">Войти</button>
-    </form>
+    <div className="container">
+      <h1 className="title">Нужно войти, что бы продолжить</h1>
+      <form onSubmit={handleSubmit} className="form">
+        <input name="login" placeholder="Введите логин" className="input" type="text" />
+        <input name="password" placeholder="Введите пароль" className="input" type="password" />
+        <label htmlFor="form"></label>
+        <button className=" btn sign-in" type="submit">Войти</button>
+      </form>
+    </div>
+
   );
 }
