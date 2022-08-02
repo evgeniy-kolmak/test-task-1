@@ -13,7 +13,7 @@ export default function Login() {
     <form onSubmit={(e) => formValidate(e)} className="form">
       <input name="login" placeholder="Введите логин" className="input" type="text" />
       <input name="password" placeholder="Введите пароль" className="input" type="password" />
-      <button className="login" type="submit">Войти</button>
+      <button className=" btn login" type="submit">Войти</button>
     </form>
   );
 }

@@ -1,5 +1,12 @@
+
+
 export default function Main() {
+
   return (
-    <div>Главная</div>
+    <div className="container">
+      <h2 className="page-title">Главная</h2>
+
+    </div>
+
   );
 }

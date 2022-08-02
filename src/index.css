@@ -5,6 +5,10 @@
   font-family: 'Courier New', Courier, monospace;
 }
 
+body {
+  background: #fff;
+}
+
 button {
   border: none;
 }

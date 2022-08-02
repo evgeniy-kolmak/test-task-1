@@ -1,9 +1,13 @@
 import './App.css'
-import { Routes, Route, Link } from "react-router-dom"
-import Login from './Pages/Login';
-import Main from './Pages/Main';
-import News from './Pages/News';
-import Profile from './Pages/Profile';
+import { Routes, Route } from "react-router-dom"
+import Login from './pages/Login';
+import Main from './pages/Main';
+import News from './pages/News';
+import Story from './pages/Story';
+import Profile from './pages/Profile';
+import Header from './сomponents/Singlepage';
+
+
 
 
 export default function App() {
@@ -11,17 +15,14 @@ export default function App() {
   localStorage.password = '12345';
   return (
     <>
-      <header className='header'>
-        <Link className="nav-link" to="/">Главная</Link>
-        <Link className="nav-link" to="/profile">Профиль</Link>
-        <Link className="nav-link" to="/news">Новости</Link>
-        <Link className="nav-link" to="/login">Логин</Link>
-      </header>
       <Routes>
-        <Route path='/' element={<Main />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/news' element={<News />} />
-        <Route path='/login' element={<Login />} />
+        <Route path="/" element={<Header />}>
+          <Route index element={<Main />} />
+          <Route path='profile' element={<Profile />} />
+          <Route path='news' element={<News />} />
+          <Route path='news/:id' element={<Story />} />
+          <Route path='login' element={<Login />} />
+        </Route>
       </Routes>
     </>
   );
