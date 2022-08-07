@@ -1,10 +1,15 @@
-import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom"
+import { signOut } from "../store/authSlice";
+import { useDispatch } from "react-redux";
 
 export default function Profile() {
-  const { signOut } = useAuth();
+  const navigate = useNavigate(null);
+  const dispatch = useDispatch();
 
-  const navigate = useNavigate(null)
+  const signOutProfile = () => {
+    dispatch(signOut(false));
+    navigate('/', { replace: true })
+  }
 
   return (
     <div className="container">
@@ -23,7 +28,7 @@ export default function Profile() {
             <li className="profile-item">Lorem ipsum dolor sit amet.</li>
 
           </ul>
-          <button className="btn sign-out" onClick={() => signOut(() => navigate('/', { replace: true }))}>Выйти</button>
+          <button className="btn sign-out" onClick={signOutProfile}>Выйти</button>
         </div>
       </div>
     </div>

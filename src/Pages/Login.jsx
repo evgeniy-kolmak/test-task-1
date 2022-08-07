@@ -1,16 +1,21 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useDispatch } from "react-redux";
+import { signIn } from "../store/authSlice";
+import { useState } from "react";
+
+
+
 
 
 export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
-
-  const { signIn } = useAuth();
+  const dispatch = useDispatch();
+  const [invalidForm, setInvalidForm] = useState(null);
 
   const fromPage = location.state?.pathname || '/';
 
-  let valid = null;
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -19,22 +24,28 @@ export default function Login() {
       password: e.target.password.value,
     }
 
-    valid = localStorage.login === data.login && localStorage.password === data.password;
+    let validData = localStorage.login === data.login && localStorage.password === data.password;
 
-    signIn(valid, () => navigate(fromPage, { replace: true }))
+    const signInProfile = () => {
+      dispatch(signIn(validData));
+      navigate(fromPage, { replace: true });
+    }
 
-
+    if (validData) {
+      signInProfile();
+    } else {
+      setInvalidForm(true);
+    }
 
   }
 
-  console.log('Я отрендарился');
   return (
     <div className="container">
       <h1 className="title">Нужно войти, что бы продолжить</h1>
       <form onSubmit={handleSubmit} className="form">
         <input name="login" placeholder="Введите логин" className="input" type="text" />
         <input name="password" placeholder="Введите пароль" className="input" type="password" />
-        <label htmlFor="form"></label>
+        <label className="error" htmlFor="form">{invalidForm ? 'Данные введены не верно' : null}</label>
         <button className=" btn sign-in" type="submit">Войти</button>
       </form>
     </div>
