@@ -39,7 +39,13 @@
 - [x] оформление (частичное)
 
 
+
 #### Инструменты
 
 + react-router-dom
 + redux-toolkit
+
+
+## Превью 
+
+ [Тестовое задание (React.js)](https://evgeniy-kolmak.github.io/test-task-1/ "test-task-1")
